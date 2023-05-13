@@ -1,7 +1,4 @@
-# suithacker
-Hackerverse Demo
-
-## Capture The Flag (CTF) Environment in AWS
+# Capture The Flag (CTF) Environment in AWS
 
 This Terraform project sets up a Capture The Flag (CTF) environment in AWS, consisting of a VPC, public and private subnets, an Internet Gateway, a Route Table, Security Groups, and EC2 instances.
 
