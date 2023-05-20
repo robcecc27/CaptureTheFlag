@@ -1,23 +1,14 @@
 #!/bin/bash
 
-# Check if gcc is installed
-if ! command -v gcc &> /dev/null
-then
-    # Install gcc
-    if command -v yum &> /dev/null
-    then
-        sudo yum install gcc -y
-    elif command -v apt-get &> /dev/null
-    then
-        sudo apt-get install gcc -y
-    else
-        echo "Unable to install gcc: Unsupported package manager"
-        exit 1
-    fi
-fi
+yum update -y
+yum install gcc -y
+yum install httpd -y
+echo "<html><body><h1>Congratulations, You Found the Webpage! Validation Code = Treefrog</h1></body></html>" >/var/www/html/index.html
+systemclt enable httpd
+systemclt start httpd
 
 # Create a C file
-echo -e '#include <stdio.h>\nint main() { printf("Congratulations, You Found the Binary File\\n(validation code = Lobo\\n"); return 0; }' > temp.c
+echo -e '#include <stdio.h>\nint main() { printf("Congratulations, You Found the Binary File! Validation code = Lobo"); return 0; }' > temp.c
 
 # Compile the C file into a binary
 gcc temp.c -o netconfig
@@ -26,10 +17,10 @@ gcc temp.c -o netconfig
 rm temp.c
 
 # Create a text file
-echo "Congratulations, You Found the text File Flag\nvalidation code = Mick & TreeFrog" > CHANGELOG
+echo "Congratulations, You Found the text File Flag! Validation code = Mick" > CHANGELOG
 
 # Create a hidden file
-echo "Congratulations, You Found the binary File Flag\nvalidation code = Rubix" > .sysconfig
+echo "Congratulations, You Found the binary File Flag! Validation code = Rubix" > .sysconfig
 
 # Get a list of root level directories
 root_dirs=($(ls / | grep -vE "(dev|proc|sys|run|boot|bin|sbin|usr|lib|etc|root)"))
