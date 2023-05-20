@@ -1,13 +1,3 @@
-# terraform {
-#   backend "s3" {
-#     bucket         = "terraformstate<ACCOUNTNUMBER>"
-#     key            = "ctf-state"
-#     region         = "us-east-1"
-#     encrypt        = true
-#     dynamodb_table = "terraform-locks"
-#   }
-# }
-
 provider "aws" {
   region = "us-east-1"
   profile = "default"
@@ -111,10 +101,6 @@ resource "aws_security_group" "private_sg" {
   }
 }
 
-data "template_file" "init_script" {
-  template = "${file("${path.module}/flag_planting.sh")}"
-}
-
 resource "aws_instance" "public_instance" {
   count = var.public_instance_count
 
@@ -126,7 +112,7 @@ resource "aws_instance" "public_instance" {
 
   associate_public_ip_address = true
 
-  user_data = data.template_file.init_script.rendered
+  user_data = file("${path.module}/init_script.sh")
 
   tags = {
     Name = "CaptureTheFlag-Public-${count.index + 1}"
@@ -142,7 +128,7 @@ resource "aws_instance" "private_instance" {
   subnet_id              = aws_subnet.private_subnet.id
   vpc_security_group_ids = [aws_security_group.private_sg.id]
 
-  user_data = filebase64("mysql_setup.sh")
+  user_data = filebase64("${path.module}/mysql_setup.sh")
 
   depends_on = [aws_instance.public_instance]
   tags = {
