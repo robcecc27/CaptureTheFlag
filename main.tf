@@ -110,6 +110,10 @@ resource "aws_security_group" "private_sg" {
   }
 }
 
+data "template_file" "init_script" {
+  template = "${file("${path.module}/flag_planting.sh")}"
+}
+
 resource "aws_instance" "public_instance" {
   count = var.public_instance_count
 
@@ -120,6 +124,8 @@ resource "aws_instance" "public_instance" {
   vpc_security_group_ids = [aws_security_group.public_sg.id]
 
   associate_public_ip_address = true
+
+  user_data = data.template_file.init_script.rendered
 
   tags = {
     Name = "CaptureTheFlag-Public-${count.index + 1}"
