@@ -110,3 +110,28 @@ This Terraform configuration creates an AWS infrastructure for a Capture the Fla
 9. **Tags**: All resources are tagged with `CaptureTheFlag=Challenge` for easier identification and management.
 
 10. **Terraform State**: The Terraform state file is stored in an S3 bucket with a specified name pattern, and a DynamoDB table is used for state locking.
+
+------
+
+## Purpose of init_script.sh
+
+This script is designed to deploy a web server on an AWS EC2 instance and plant hidden files in random locations within the Linux file system.
+
+### Steps Performed by init_script.sh
+
+1. Updates the system packages using `yum update`.
+2. Installs GCC and Apache HTTP Server (httpd) using `yum install`.
+3. Creates an index.html file with a congratulatory message in the web server's root directory.
+4. Starts the HTTP server using `systemctl start`.
+5. Enables the HTTP server to start on boot using `systemctl enable`.
+6. Creates a C file (`temp.c`) and compiles it into a binary (`netconfig`) using GCC.
+7. Removes the temporary C file using `rm`.
+8. Creates a text file (`CHANGELOG`) and a hidden file (`.sysconfig`) with congratulatory messages.
+9. Retrieves a list of root level directories (excluding system directories).
+10. Selects a random root level directory and a random subdirectory within it.
+11. Moves the files (`netconfig`, `CHANGELOG`, and `.sysconfig`) to the selected subdirectory.
+12. Logs the location of each file in the `/var/log/flag_planting.log` file.
+
+Please note that this script requires root permissions to perform the necessary operations and should be run on an EC2 instance with appropriate permissions.
+
+Feel free to modify the script as per your requirements.
