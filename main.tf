@@ -1,15 +1,16 @@
-terraform {
-  backend "s3" {
-    bucket         = "terraformstate<ACCOUNTNUMBER>"
-    key            = "ctf-state"
-    region         = "us-east-1"
-    encrypt        = true
-    dynamodb_table = "terraform-locks"
-  }
-}
+# terraform {
+#   backend "s3" {
+#     bucket         = "terraformstate<ACCOUNTNUMBER>"
+#     key            = "ctf-state"
+#     region         = "us-east-1"
+#     encrypt        = true
+#     dynamodb_table = "terraform-locks"
+#   }
+# }
 
 provider "aws" {
   region = "us-east-1"
+  profile = "default"
 }
 
 resource "aws_vpc" "ctf_vpc" {

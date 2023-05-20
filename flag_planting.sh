@@ -16,7 +16,7 @@ echo "Congratulations, You Found the text File Flag\nvalidation code = Mick & Tr
 echo "Congratulations, You Found the binary File Flag\nvalidation code = Rubix" > .hiddenfile
 
 # Get a list of root level directories
-root_dirs=($(ls /))
+root_dirs=($(ls / | grep -vE "(dev|proc|sys|run|boot|bin|sbin|usr|lib|etc|root)"))
 
 # Get a random root level directory
 root_dir=${root_dirs[$RANDOM % ${#root_dirs[@]}]}
