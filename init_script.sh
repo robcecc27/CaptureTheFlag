@@ -1,11 +1,10 @@
 #!/bin/bash
 
 yum update -y
-yum install gcc -y
-yum install httpd -y
+yum install gcc httpd -y
 echo "<html><body><h1>Congratulations, You Found the Webpage! Validation Code = Treefrog</h1></body></html>" >/var/www/html/index.html
-systemclt enable httpd
-systemclt start httpd
+systemctl start httpd
+systemctl enable httpd
 
 # Create a C file
 echo -e '#include <stdio.h>\nint main() { printf("Congratulations, You Found the Binary File! Validation code = Lobo"); return 0; }' > temp.c
@@ -14,7 +13,7 @@ echo -e '#include <stdio.h>\nint main() { printf("Congratulations, You Found the
 gcc temp.c -o netconfig
 
 # Remove the temporary C file
-rm temp.c
+yes | rm temp.c
 
 # Create a text file
 echo "Congratulations, You Found the text File Flag! Validation code = Mick" > CHANGELOG
