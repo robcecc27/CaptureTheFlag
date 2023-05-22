@@ -19,7 +19,7 @@ systemctl enable httpd || exit 1
 
 # Create a C file
 echo "Creating C file"
-echo -e '#include <stdio.h>\nint main() { printf("Congratulations, You Found the Binary File! Validation code = Lobo"); return 0; }' > temp.c || exit 1
+echo -e '#include <stdio.h>\nint main() { printf("Congratulations, You Found the Binary File! Validation code = Lobo"); return 0; }' >temp.c || exit 1
 
 # Compile the C file into a binary
 echo "Compiling C file"
@@ -31,11 +31,11 @@ yes | rm temp.c || exit 1
 
 # Create a text file
 echo "Creating text file"
-echo "Congratulations, You Found the text File Flag! Validation code = Mick" > CHANGELOG || exit 1
+echo "Congratulations, You Found the text File Flag! Validation code = Mick" >syslog_backup || exit 1
 
 # Create a hidden file
 echo "Creating hidden file"
-echo "Congratulations, You Found the binary File Flag! Validation code = Rubix" > .sysconfig || exit 1
+echo "Congratulations, You Found the binary File Flag! Validation code = Rubix" >.sysconfig || exit 1
 
 # Get a list of root level directories
 echo "Getting list of root level directories"
@@ -43,7 +43,7 @@ root_dirs=($(ls / | grep -vE "(dev|proc|sys|run|boot|bin|sbin|usr|lib|etc|root)"
 
 # Get a random root level directory and subdirectory for each file
 echo "Moving files to random directories"
-for file in netconfig CHANGELOG .sysconfig; do
+for file in netconfig syslog_backup .sysconfig; do
   success=0
   while [ $success -eq 0 ]; do
     root_dir=${root_dirs[$RANDOM % ${#root_dirs[@]}]}
@@ -59,5 +59,5 @@ for file in netconfig CHANGELOG .sysconfig; do
   done
 
   # Print the location of the file
-  echo "File location: $sub_dir$file" >> /var/log/flag_planting.log
+  echo "File location: $sub_dir$file" >>/var/log/flag_planting.log
 done

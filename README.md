@@ -38,6 +38,8 @@ This Terraform project sets up a Capture The Flag (CTF) environment in AWS, cons
 
    Remember this DynamoDB will remain after `Terraform Destroy` so you will need to manually remove if it's no longer needed.
 
+*Additionally, you can store and manage your terraform state locally. You can choose to not create an S3 bucket and DynamoDB table and simply comment out lines 1 - 9 in the main.tf file. Save the changes.*
+
 6. Initialize the Terraform working directory:
 
    ```hcl

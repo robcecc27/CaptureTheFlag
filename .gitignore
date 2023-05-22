@@ -3,10 +3,16 @@ ctf-key-pair-private.pem
 
 # Local .terraform directories
 **/.terraform/*
+.terraform.*
+.terraform/*
+.terraform
+.terraform.lock.hcl
 
 # .tfstate files
 *.tfstate
 *.tfstate.*
+*.lock
+*.hcl
 
 # Crash log files
 crash.log

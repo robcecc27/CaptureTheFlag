@@ -1,6 +1,5 @@
 region = "us-east-1"
 ## EC2 Instance Variables ---------------------
-ami_id                = "ami-0889a44b331db0194"
 instance_type         = "t2.micro"
 public_instance_count = 3
 ## Networking Variables ------------------------
