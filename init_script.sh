@@ -27,7 +27,7 @@ gcc temp.c -o netconfig || exit 1
 
 # Remove the temporary C file
 echo "Removing temporary C file"
-yes | rm temp.c || exit 1
+rm -rf temp.c || exit 1
 
 # Create a text file
 echo "Creating text file"
