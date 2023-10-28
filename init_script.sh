@@ -11,14 +11,13 @@ yum install -y php || exit 1
 echo "Installing gcc and httpd"
 yum install gcc httpd -y || exit 1
 
-
 # Create the webpage using PHP
 cat <<- 'EOF' > /var/www/html/index.php
 <html>
 <body>
 <h1>Congratulations, You Found the Webpage! Validation Code = "Attack or the Kittens"</h1>
 <?php
-  \$files = glob("/var/www/html/*.jpg");
+  $files = glob("/var/www/html/*.jpg");
   foreach (\$files as \$file) {
     echo '<img src="' . basename(\$file) . '" alt="Kitten">';
   }
@@ -36,7 +35,7 @@ systemctl enable httpd || exit 1
 
 # Create a C file
 echo "Creating C file"
-echo -e '#include <stdio.h>\nint main() { printf("Congratulations, You Found the Binary File! Validation code = Lobo"); return 0; }' >temp.c || exit 1
+echo -e '#include <stdio.h>\nint main() { printf("Congratulations, You Found the Binary File! Validation code = C is for Cats"); return 0; }' >temp.c || exit 1
 
 # Compile the C file into a binary
 echo "Compiling C file"
@@ -48,11 +47,11 @@ rm -rf temp.c || exit 1
 
 # Create a text file
 echo "Creating text file"
-echo "Congratulations, You Found the text File Flag! Validation code = Mick" >syslog_backup || exit 1
+echo "Congratulations, You Found the text File Flag! Validation code = T is for Tested" >syslog_backup || exit 1
 
 # Create a hidden file
 echo "Creating hidden file"
-echo "Congratulations, You Found the binary File Flag! Validation code = Rubix" >.sysconfig || exit 1
+echo "Congratulations, You Found the binary File Flag! Validation code = H is for Hurray" >.sysconfig || exit 1
 
 # Get a list of root level directories
 echo "Getting list of root level directories"

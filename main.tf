@@ -162,6 +162,11 @@ resource "aws_instance" "public_instance" {
   associate_public_ip_address = true
 
   user_data = data.local_file.init_script.content
+  
+  root_block_device {
+    volume_type = "gp3"
+    volume_size = 28  
+  }
 
   tags = {
     Name = "CaptureTheFlag-Public-${count.index + 1}"
@@ -178,6 +183,11 @@ resource "aws_instance" "private_instance" {
   vpc_security_group_ids = [aws_security_group.private_sg.id]
 
   user_data = filebase64("${path.module}/mysql_setup.sh")
+  
+  root_block_device {
+    volume_type = "gp3"
+    volume_size = 28   
+  }
 
   depends_on = [aws_instance.public_instance]
   tags = {

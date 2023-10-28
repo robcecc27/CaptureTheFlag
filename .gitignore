@@ -13,7 +13,7 @@ ctf-key-pair-private.pem
 *.tfstate.*
 *.lock
 *.hcl
-
+terraform.tfstate.backup
 # Crash log files
 crash.log
 crash.*.log
