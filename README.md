@@ -15,13 +15,15 @@ This Terraform project sets up a Capture The Flag (CTF) environment in AWS, cons
 
 3. Install the Terraform CLI. For instructions, refer to the [official Terraform documentation](https://learn.hashicorp.com/tutorials/terraform/install-cli).
 
+### Skip Set 4 and 5 if you plan to store your terraform state locally
+
 4. Create the S3 bucket for storing the Terraform state file:
 
    ```shell
-   aws s3api create-bucket --bucket "terraformstate<ACCOUNTNUMBER>" --region "us-east-1"
+   aws s3api create-bucket --bucket "terraformstate<RandomNumbers>" --region "us-east-1"
    ```
 
-   Replace `<ACCOUNTNUMBER>` with your AWS account number.
+   > Replace `<RandomNumbers>` with a random string of numbers as S3 requires all buckets to be a globally unique bucket name.
 
    Remember this bucket will remain after `Terraform Destroy` so you will need to manually remove if it's no longer needed.
 
@@ -38,7 +40,15 @@ This Terraform project sets up a Capture The Flag (CTF) environment in AWS, cons
 
    Remember this DynamoDB will remain after `Terraform Destroy` so you will need to manually remove if it's no longer needed.
 
+#### Note
+
+Remember to replace `<RandomNumbers>` in both the AWS CLI commands and the `main.tf` file.
+
+> Current version already has this commented out, to use S3 and DynamoDB you'll need to uncomment the lines listed below.
+
 *Additionally, you can store and manage your terraform state locally. You can choose to not create an S3 bucket and DynamoDB table and simply comment out lines 1 - 9 in the main.tf file. Save the changes.*
+
+### Getting the Environment up and running
 
 6. Initialize the Terraform working directory:
 
@@ -71,15 +81,12 @@ This Terraform project sets up a Capture The Flag (CTF) environment in AWS, cons
 
 10. When you are done with the environment, destroy the resources to avoid unnecessary costs:
 
-    ``` shell
+    ``` hcl
     terraform destroy
     ```
 
     Review the changes and type `yes` when prompted to destroy the resources.
 
-## Note
-
-Remember to replace `<ACCOUNTNUMBER>` with your actual AWS account number in both the AWS CLI commands and the `main.tf` file.
 
 ------
 
